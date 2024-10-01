@@ -53,10 +53,12 @@ If we try to add numbers in the QFT, we get:
 
 ![](/images/QFT_addition.png)
 
-If we decompose "m" and "b" in the second phase into their individual qubits using the same double sum as before, we find that we get similar cancellations, leading to the same exact n-k-1 staircase of controlled rotations as before. As such, the addition circuit looks nearly identical to the QFT circuit, but with the Hadamard's removed:
+If we decompose "m" and "b" in the second phase into their individual qubits using the same double sum as before, we find that we get similar cancellations, leading to the same exact n-k-1 staircase of controlled rotations as before. As such, the addition circuit looks nearly identical to the QFT circuit, but with the Hadamard gates removed:
 
 (insert circuit)
 
 ## How QFT Multiplication Works
 
-## Optimizations
+## Resource Consumption
+
+Suppose we are operating on an n-digit number a and an m-digit number b. For QFT addition, we need m+n+1 qubits total: m qubits to store a, n qubits to store b, and an extra qubit to prevent overflow/ensure the result a+b has enough qubits to be stored. However, only one of the numbers being added—which we'll assume is number a—needs to be put through the QFT/inverse QFT; the other number b remains constant and only serves as controls for rotations on a. As the original paper describes, if b is directly encoded into the rotation gates themselves instead of used as controls, the m qubits of b become redundant and the entire adder only needs n+1 qubits total.
