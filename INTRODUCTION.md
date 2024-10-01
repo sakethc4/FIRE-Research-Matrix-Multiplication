@@ -6,7 +6,7 @@ Here, we will explain how quantum addition and multiplication work and provide q
 
 Similar to how classical computers store numbers, quantum computers—at least for the purpose of addition and multiplication—store integers in binary. Classical computers usually store integers using a fixed number of bits, typically either 32 or 64 bits. However, since qubits are a much more limited resource than bits, quantum computers store a reduced range of numbers, generally well below 32 qubits per integer.
 
-Although qubits are probabilistic by nature, the initial and final integer states for quantum arithmetic circuits are designed NOT to be in a superposition; assuming no quantum noise, only one measurement is necessary to get the result of a single arithmetic operation.
+Although qubits are probabilistic by nature, the initial and final integer states for quantum arithmetic circuits are designed NOT to be in a superposition; assuming no quantum noise, only one measurement is necessary to get the result of a single arithmetic operation. Superposition is only used internally within the arithmetic circuits.
 
 ## Implementations of Addition and Multiplication
 
@@ -22,15 +22,15 @@ The fourier transform decomposes data into their constituent frequencies. Since 
 
 ## How the QFT Works
 
-Formally, the QFT is defined as:
-
-![](/images/QFT_definition.png)
-
-First, we partition the complex plane into multiple phases, one unique phase for each quantum state (note that if there are "n" input qubits, there are "2^n" input states). We define:
+For the QFT, we partition the complex plane into multiple phases, one unique phase for each quantum state (note that if there are "n" input qubits, there are "2^n" input states). We define:
 
 ![](/images/QFT_phase_partition.png)
 
-Then, we break the input state "a" and the output state "b" into their individual qubits (in order to build a circuit with gates operating on/between qubits, we need to see how the QFT acts on each individual qubit):
+Where omega is both the smallest possible phase in the QFT and the phase between any phase and the next largest phase. Formally, the QFT is defined as:
+
+![](/images/QFT_definition.png)
+
+To understand the QFT, we break the input state "a" and the output state "b" into their individual qubits (in order to build a circuit with gates operating on/between qubits, we need to see how the QFT acts on each individual qubit):
 
 ![](/images/QFT_expansion.png)
 *Notice how we are summing between the 0th to (n-1)th qubits of each state. Each sum contains n terms, one term for each qubit.*
@@ -58,3 +58,5 @@ If we decompose "m" and "b" in the second phase into their individual qubits usi
 (insert circuit)
 
 ## How QFT Multiplication Works
+
+## Optimizations
