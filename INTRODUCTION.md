@@ -1,28 +1,28 @@
 # Introduction to QFT Arithmetic
 
-Here, we will explain how quantum addition and multiplication work and are implemented on a quantum computer.
+Here, we will explain how quantum addition and multiplication work and provide quantum circuits for both.
 
 ## Storing Integers
 
-Similar to how classical computers store numbers, quantum computers—at least for the purpose of addition and multiplication—store integers in binary. Classical computers usually store integers using a fixed number of bits, typically either 32 or 64 bits. However, since qubits are a much more limited resource than bits, quantum computers store a reduced range of numbers and do not reach 64 or even 32 qubits. Although qubits are probabilistic by nature, the initial and final integer states for quantum arithmetic circuits are designed NOT to be in a superposition; assuming no quantum noise, only one measurement is necessary to get the result of one arithmetic operation.
+Similar to how classical computers store numbers, quantum computers—at least for the purpose of addition and multiplication—store integers in binary. Classical computers usually store integers using a fixed number of bits, typically either 32 or 64 bits. However, since qubits are a much more limited resource than bits, quantum computers store a reduced range of numbers, generally well below 32 qubits per integer. Although qubits are probabilistic by nature, the initial and final integer states for quantum arithmetic circuits are designed NOT to be in a superposition; assuming no quantum noise, only one measurement is necessary to get the result of one arithmetic operation.
 
 ## Implementations of Addition and Multiplication
 
 Classical adders use half and full adder circuits. Classical adders require no encoding/preprocessing of the input numbers and use a combination of classical XOR, AND, and OR gates to add numbers together. A similar circuit using half and full adders can be constructed on a quantum computer:
 
-(insert circuit)
+![A quantum circuit for a full adder.](https://www.researchgate.net/publication/346508632/figure/fig1/AS:963729009156096@1606782309965/Circuit-model-of-a-quantum-full-adder.png)
 
 However, the three-qubit gates used in such a quantum adder circuit are very computationally expensive. If the Quantum Fourier Transform (QFT) is used to encode/preprocess inputs first, no three-qubit gates are necessary and the new adder circuit is substantially faster:
 
 (insert circuit)
 
-The fourier transform decomposes data into its constituent frequencies. Since complex numbers represent rotations around the unit circle, these frequencies are stored as complex phases. On classical computers, superposition does not exist and bits are restricted to 0 or 1; for this reason, multiple bits are required to store just a single complex number. However, on quantum computers, qubits can be rotated; only one qubit is needed to store a single complex number. Because of superposition and the compact nature of the QFT, fourier transformed arithmetic circuits on provide speed ups on quantum computers that would not be possible on classical computers.
+The fourier transform decomposes data into their constituent frequencies. Since complex numbers represent rotations around the unit circle, these frequencies are stored as complex phases. On classical computers, superposition does not exist and bits are restricted to 0 or 1; for this reason, multiple bits are required to store just a single complex number. However, on quantum computers, qubits can be rotated; only one qubit is needed to store a single complex number. Because of superposition and the compact nature of the QFT, fourier transformed arithmetic circuits on provide speed ups on quantum computers that would not be possible on classical computers.
 
 ## How the QFT Works
 
 Formally, the QFT is defined as:
 
-(insert equation)
+![](/images/QFT_definition.png)
 
 First, we partition the complex plane into multiple phases, one unique phase for each quantum state (note that if there are "n" input qubits, there are "2^n" input states). We define:
 
