@@ -4,7 +4,9 @@ Here, we will explain how quantum addition and multiplication work and provide q
 
 ## Storing Integers
 
-Similar to how classical computers store numbers, quantum computers—at least for the purpose of addition and multiplication—store integers in binary. Classical computers usually store integers using a fixed number of bits, typically either 32 or 64 bits. However, since qubits are a much more limited resource than bits, quantum computers store a reduced range of numbers, generally well below 32 qubits per integer. Although qubits are probabilistic by nature, the initial and final integer states for quantum arithmetic circuits are designed NOT to be in a superposition; assuming no quantum noise, only one measurement is necessary to get the result of one arithmetic operation.
+Similar to how classical computers store numbers, quantum computers—at least for the purpose of addition and multiplication—store integers in binary. Classical computers usually store integers using a fixed number of bits, typically either 32 or 64 bits. However, since qubits are a much more limited resource than bits, quantum computers store a reduced range of numbers, generally well below 32 qubits per integer.
+
+Although qubits are probabilistic by nature, the initial and final integer states for quantum arithmetic circuits are designed NOT to be in a superposition; assuming no quantum noise, only one measurement is necessary to get the result of a single arithmetic operation.
 
 ## Implementations of Addition and Multiplication
 
@@ -26,19 +28,20 @@ Formally, the QFT is defined as:
 
 First, we partition the complex plane into multiple phases, one unique phase for each quantum state (note that if there are "n" input qubits, there are "2^n" input states). We define:
 
-(insert equation)
+![](/images/QFT_phase_partition.png)
 
 Then, we break the input state "a" and the output state "b" into their individual qubits (in order to build a circuit with gates operating on/between qubits, we need to see how the QFT acts on each individual qubit):
 
-(insert equation)[Notice how we are summing between the 0th to (n-1)th qubits of each state. Each sum contains n terms, one term for each qubit.]
+![](/images/QFT_expansion.png)
+*Notice how we are summing between the 0th to (n-1)th qubits of each state. Each sum contains n terms, one term for each qubit.*
 
 Next, we can actually ignore certain terms in the summation that are integer multiples of 2π, because full rotations in the complex plane get you back where you started. In particular, we only need to include terms such that j+k-n<0, or equivalently j<n-k:
 
-(insert equation)
+![](/images/QFT_expansion_simplification.png)
 
 We now have an expansion for each qubit. If we look at the last qubit, we notice that the operation is a single Hadamard gate:
 
-(insert equation)
+![](/images/QFT_last_qubit.png)
 
 If you examine other terms, say the kth qubit, you find that you get a Hadamard transformation accompanied by n-k-1 controlled rotations between other qubits. Translating the Hadamard gates and controlled rotation gates to an actual circuit yields the entire QFT circuit:
 
@@ -48,7 +51,7 @@ If you examine other terms, say the kth qubit, you find that you get a Hadamard 
 
 If we try to add numbers in the QFT, we get:
 
-(insert equation)
+![](/images/QFT_addition.png)
 
 If we decompose "m" and "b" in the second phase into their individual qubits using the same double sum as before, we find that we get similar cancellations, leading to the same exact n-k-1 staircase of controlled rotations as before. As such, the addition circuit looks nearly identical to the QFT circuit, but with the Hadamard's removed:
 
