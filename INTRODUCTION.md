@@ -59,6 +59,27 @@ If we decompose "m" and "b" in the second phase into their individual qubits usi
 
 ## How QFT Multiplication Works
 
+Since classical computers don’t have built in multiplication circuits (like they do adders). They need to do repeated addition in order to efficiently perform multiplication operations. 
+
+![](/images/QFT_MULT_EXAMPLE.png)
+
+To emulate this repeated addition action we can create a quantum multiplier that follows the following steps: 
+Get the multiplicand and the multiplier (this will just be user input)
+Create a quantum register to use as the accumulator 
+Add the multiplicand to the accumulator using quantum fourier based transforms 
+Decrement the multiplier using quantum fourier based subtraction
+Repeat this until the multiplier reaches 0. 
+Now if we just output the value of the accumulator we get the product of the two input numbers. 
+
+Since there is no “control” that enables us to add a gate on a specific value held in a register we can implement a c_if line telling the quantum computer to apply an “X” gate to the first qubit of the register only if the value of the bit string stored in the classical register is equal to |00…01>. This notation is used in quantum computing to represent a state where 00…01 represents the state of a number of qubits. An example to better understand this is |00001> where the first 4 qubits are in the 0 state and the last qubit is in the state 1. Once we find this meaningful state |00…01> we apply the “X” gate in order to flip the qubits (it’s pretty much a classical NOT gate). This flip (based on the necessary state we need the qubits to be in) forms the foundation for constructing the more complex operations (controlled gates and addition circuits) in the rest of the matrix multiplication process. 
+
+The Universal equation for matrix multiplication is as follows: 
+
+![](/images/UNIVERSAL_MATRIX_MULT_EQ.png)
+ 
+This approach is a naive approach to matrix multiplication where we are essentially going through and multiplying every row in the first matrix with every column in the second. Essentially Product = A dot B. This approach is implemented using the adders and multipliers as previously mentioned. 
+
+
 ## Resource Consumption
 
 Suppose we are operating on an n-digit number a and an m-digit number b. For QFT addition, we need m+n+1 qubits total: m qubits to store a, n qubits to store b, and an extra qubit to prevent overflow/ensure the result a+b has enough qubits to be stored. However, only one of the numbers being added—which we'll assume is number a—needs to be put through the QFT/inverse QFT; the other number b remains constant and only serves as controls for rotations on a. As the original paper describes, if b is directly encoded into the rotation gates themselves instead of used as controls, the m qubits of b become redundant and the entire adder only needs n+1 qubits total.
