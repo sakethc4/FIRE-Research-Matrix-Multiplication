@@ -18,9 +18,9 @@ QFT addition differs from classical in that it leverages a QFT to encode numbers
 Essentially we use QFT to transform the input then apply a sequence of controlled phase 
 rotations. Then for each bit in our m variable we apply a controlled rotation to each bit producing a phase shift w^mb which is dependent on the value of m. After we sum up all of these controlled rotations we get a + b on the Fourier basis. Now we just need to do an inverse QFT and we convert the result back to the computational basis and get the same exact solution as just adding a + b. Leveraging quantum superposition enables us to compute addition for large inputs more efficiently as opposed to classical addition. 
 
+![](/images/classicalsum.png)
 
-
-
+![](/images/quantumsum.png)
  
 ### QFT Multiplication
 In order to complete the QFT Multiplication, we used PennyLane.
@@ -44,13 +44,16 @@ Different quantum sigmoid x values
 
 ## Results 
 Graphs for matrix multiplication
-
+![](/images/5qbtotal.png)
+![](/images/5qbmul.png)
 
 Graphs for sigmoid x values
-
+![](/images/sigpos.png)
+![](/images/signegative.png)
 
 Actual QPU or simulations
-
+![](/images/5qbtotalionq.png)
+![](/images/5qbmulionq.png)
 
 
 Key Findings: Present your main results using clear and concise visuals (e.g., graphs, charts, tables).
