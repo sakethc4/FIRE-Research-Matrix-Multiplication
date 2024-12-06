@@ -44,14 +44,17 @@ Different quantum sigmoid x values
 
 ## Results 
 Graphs for matrix multiplication
+
 ![](/images/5qbtotal.png)
 ![](/images/5qbmul.png)
 
 Graphs for sigmoid x values
+
 ![](/images/sigpos.png)
 ![](/images/signegative.png)
 
 Actual QPU or simulations
+
 ![](/images/5qbtotalionq.png)
 ![](/images/5qbmulionq.png)
 
